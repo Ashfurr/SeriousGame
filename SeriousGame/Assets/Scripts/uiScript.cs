@@ -5,27 +5,89 @@ using UnityEngine;
 
 public class uiScript : MonoBehaviour
 {
-    [SerializeField] CinemachineVirtualCamera firstCam;
-    [SerializeField] CinemachineVirtualCamera secondCam;
-    [SerializeField] CinemachineVirtualCamera thirdCam;
+    [SerializeField] CinemachineVirtualCamera[] cams;
+    public int activeScene = 0;
+    private void Start()
+    {
+        cams[0].Priority = 20;
+        cams[1].Priority = 10;
+        cams[2].Priority = 10;
+    }
+    private void Update()
+    {
+        
+    }
+    public void nextCam()
+    {
+        if(activeScene < 2)
+        {
+            activeScene++;
+            for (int i = 0; i < cams.Length; i++)
+            {
+                if (i == activeScene)
+                {
+                    cams[i].Priority = 20;
+                }
+                else
+                {
+                    cams[i].Priority = 10;
+                }
+            }
+        }
+        else
+        {
+            activeScene = 0;
+            for (int i = 0; i < cams.Length; i++)
+            {
+                if (i == activeScene)
+                {
+                    cams[i].Priority = 20;
+                }
+                else
+                {
+                    cams[i].Priority = 10;
+                }
+            }
+            
+        }
+            
+    }
+    public void previousCam()
+    {
+        
+        if (activeScene > 0)
+        {
+            activeScene--;
+            for (int i = 0; i < cams.Length; i++)
+            {
+                if (i == activeScene)
+                {
+                    cams[i].Priority = 20;
+                }
+                else
+                {
+                    cams[i].Priority = 10;
+                }
+            }
+        }
+        else
+        {
+            activeScene = 2;
+            for (int i = 0; i < cams.Length; i++)
+            {
+                print(i);
+                if (i == activeScene)
+                {
+                    cams[i].Priority = 20;
+                }
+                else
+                {
+                    cams[i].Priority = 10;
+                }
+            }
+            
+        }
 
-    void gardenView()
-    {
-        firstCam.enabled = false;
-        secondCam.enabled = true;
-        thirdCam.enabled = false;
-    }
-    void receptionView()
-    {
-        firstCam.enabled = true;
-        secondCam.enabled = false;
-        thirdCam.enabled = false;
-    }
-    void cookView()
-    {
-        firstCam.enabled = false;
-        secondCam.enabled = false;
-        thirdCam.enabled = true;
     }
 
 
