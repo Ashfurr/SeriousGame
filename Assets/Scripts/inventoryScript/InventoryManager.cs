@@ -29,9 +29,9 @@ public class InventoryManager : MonoBehaviour
     {
         foreach (Transform item in ItemContent)
         {
-            Destroy(item.gameObject);
+            GameObject.Destroy(item.gameObject);
         }
-        foreach(var item in Items)
+        foreach (var item in Items)
         {
             GameObject obj = Instantiate(InventoryItem, ItemContent);
             var itemName = obj.transform.Find("itemName").GetComponent<Text>();
@@ -40,14 +40,18 @@ public class InventoryManager : MonoBehaviour
             itemName.text = item.itemName;
             itemIcon.sprite = item.icon;
         }
-        SetIventoryItems();
-    }
-    public void SetIventoryItems()
-    {
         inventoryItems = ItemContent.GetComponentsInChildren<InventoryItemController>();
-        for(int i = 0; i < Items.Count; i++)
+        for (int i = 0; i < Items.Count; i++)
         {
             inventoryItems[i].AddItem(Items[i]);
+        }
+    }
+    
+    public void closeInventory()
+    {
+        foreach (Transform item in ItemContent)
+        {
+            GameObject.Destroy(item.gameObject);
         }
     }
 }

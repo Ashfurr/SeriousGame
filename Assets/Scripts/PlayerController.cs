@@ -44,13 +44,14 @@ public class PlayerController : MonoBehaviour
     }
     private void harvestPlant()
     {
-        Item Item = flowerSelected.GetComponent<ItemController>().item;
-        InventoryManager.Instance.Add(Item);    
+           
         flowerSelected.transform.DOMoveY(1f, 1f).SetId("harvest").SetEase(Ease.OutElastic).OnComplete(destroyPlant);
         DOTween.Play("harvest");
     }
     private void destroyPlant()
     {
+        Item Item = flowerSelected.GetComponent<ItemController>().item;
+        InventoryManager.Instance.Add(Item);
         Destroy(flowerSelected);
         flowerSelected = null;
         plop = false;
