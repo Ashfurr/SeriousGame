@@ -1,9 +1,8 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
@@ -13,18 +12,18 @@ public class Customer : MonoBehaviour
 
     [SerializeField] GameObject gameManager;
     [SerializeField] GameObject uiCustomer;
-    Image patologie;
 
+    Image patologie;
     GameObject actualCustomer = null;
     private void Awake()
     {
-       patologie = uiCustomer.GetComponent<Image>();
+        patologie = uiCustomer.GetComponent<Image>();
     }
 
     public void newCustomer()
     {
         actualCustomer = Instantiate(customerPrefab, paths[0]);
-        Sequence customerPath = DOTween.Sequence().SetId("path").AppendCallback(imagePatologie);
+        Sequence customerPath = DOTween.Sequence().SetId("path").OnComplete(imagePatologie);
         for (int i = 1; i < paths.Length; i++)
         {
 
@@ -34,6 +33,7 @@ public class Customer : MonoBehaviour
     }
     private void imagePatologie()
     {
-        patologie.
+        patologie.DOFade(0.8f, 0.5f).SetId("custText");
+        DOTween.Play("custText");
     }
 }
