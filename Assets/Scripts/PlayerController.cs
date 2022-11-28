@@ -7,40 +7,73 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float flowerDistance;
+    [SerializeField] GameObject currentcam;
+    [SerializeField] List<Vector3> cutCoord= new List<Vector3> { } ;
     private GameObject flowerSelected;
     private Vector2 startPos;
     private Vector2 endPos;
     private bool plop = false;
+
+    [SerializeField] GameObject Knife;
+    [SerializeField] int cutDistance;
+    float distanceScreen;
+    bool isCutting;
+    int compCut = 1;
+
     void Update()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (currentcam.tag == "secondCam")
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
 
-                if (hit.collider.tag == "flower")
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit))
                 {
-                    print("je touche la fleur");
-                    flowerSelected = hit.collider.gameObject;
-                    startPos = Input.GetTouch(0).position;
+
+                    if (hit.collider.tag == "flower")
+                    {
+                        print("je touche la fleur");
+                        flowerSelected = hit.collider.gameObject;
+                        startPos = Input.GetTouch(0).position;
+                    }
                 }
             }
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && flowerSelected != null)
+            {
+                print("je lui pisse dessus");
+                endPos = Input.GetTouch(0).position;
+                float distance = Vector2.Distance(startPos, endPos);
+                if (distance > flowerDistance && !plop)
+                {
+
+                    plop = true;
+                    harvestPlant();
+
+                }
+            }
+
         }
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && flowerSelected != null)
+        if (currentcam.tag == "thirdCam")
         {
-            print("je lui pisse dessus");
-            endPos = Input.GetTouch(0).position;
-            float distance = Vector2.Distance(startPos, endPos);
-            if (distance > flowerDistance && !plop)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                startPos = Input.GetTouch(0).position;
+            }
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                endPos = Input.GetTouch(0).position;
+                distanceScreen = Vector2.Distance(startPos, endPos);
+            }
+            if (distanceScreen > cutDistance && !isCutting)
             {
                 
-                plop = true;
-                harvestPlant();
-
+                isCutting = true;
+                cut();
             }
         }
+
     }
     private void harvestPlant()
     {
@@ -55,5 +88,14 @@ public class PlayerController : MonoBehaviour
         Destroy(flowerSelected);
         flowerSelected = null;
         plop = false;
+    }
+    void cut()
+    {
+        Sequence cutting = DOTween.Sequence();
+        cutting.Append(Knife.transform.DOMove(cutCoord[compCut],0.5f).SetLoops(2,LoopType.Yoyo));
+        cutting.Append(Knife.transform.DOMove(cutCoord[compCut+1], 1f));
+        cutting.Play();
+        cutting.OnComplete(() => { isCutting = false;distanceScreen = 0; if (compCut < 7) { compCut += 2; } else { compCut = 1; } ; cutting.Kill(); });
+        
     }
 }
