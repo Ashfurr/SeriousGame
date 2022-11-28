@@ -7,8 +7,10 @@ public class uiScript : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera[] cams;
     public int activeScene = 0;
+    PlayerController playerController;
     private void Start()
     {
+        playerController=GameObject.Find("Player").GetComponent<PlayerController>();
         cams[0].Priority = 20;
         cams[1].Priority = 10;
         cams[2].Priority = 10;
@@ -27,6 +29,7 @@ public class uiScript : MonoBehaviour
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
+                    playerController.SetCurrentCam(i);
                 }
                 else
                 {
@@ -63,6 +66,7 @@ public class uiScript : MonoBehaviour
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
+                    playerController.SetCurrentCam(i);
                 }
                 else
                 {
