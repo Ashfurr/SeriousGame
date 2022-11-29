@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float flowerDistance;
     [SerializeField] int currentcam=0;
     [SerializeField] List<Vector3> cutCoord= new List<Vector3> { } ;
+    
     private GameObject flowerSelected;
     private Vector2 startPos;
     private Vector2 endPos;
@@ -19,16 +20,8 @@ public class PlayerController : MonoBehaviour
     float distanceScreen;
     bool isCutting;
     int compCut = 1;
-    public void SetCurrentCam(int cam)
+    public void SetActivecam(int cam)
     {
-        StartCoroutine(DelayCam(1,cam));
-        startPos = Vector2.zero;
-        endPos = Vector2.zero;
-        
-    }
-    IEnumerator DelayCam(int second,int cam)
-    {
-        yield return new WaitForSeconds(second);
         currentcam = cam;
     }
     void Update()
@@ -76,7 +69,7 @@ public class PlayerController : MonoBehaviour
             {
                 endPos = Input.GetTouch(0).position;
                 distanceScreen = Vector2.Distance(startPos, endPos);
-                print(distanceScreen);
+                
             }
             if (distanceScreen > cutDistance && !isCutting)
             {
@@ -104,18 +97,10 @@ public class PlayerController : MonoBehaviour
     void cut()
     {
         Sequence cutting = DOTween.Sequence();
-        cutting.Append(Knife.transform.DOMove(cutCoord[compCut],0.5f).SetLoops(2,LoopType.Yoyo));
-        cutting.Append(Knife.transform.DOMove(cutCoord[compCut+1], 1f));
+        cutting.Append(Knife.transform.DOMove(cutCoord[compCut], 0.5f).SetLoops(2, LoopType.Yoyo));
+        cutting.Append(Knife.transform.DOMove(cutCoord[compCut + 1], 1f));
         cutting.Play();
-        cutting.OnComplete(() => { isCutting = false;distanceScreen = 0; if (compCut < 7) { compCut += 2; } else { compCut = 1; } ; cutting.Kill(); });
-        
-    }
-    public void useObject()
-    {
-        if (currentcam == 2)
-        {
-
-        }
+        cutting.OnComplete(() => { isCutting = false; distanceScreen = 0; if (compCut < 7) { compCut += 2; } else { compCut = 1; }; cutting.Kill(); });
     }
 
 }

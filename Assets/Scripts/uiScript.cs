@@ -6,10 +6,13 @@ using UnityEngine;
 public class uiScript : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera[] cams;
+    [SerializeField] GameObject gameManager;
     public int activeScene = 0;
     PlayerController playerController;
+    gameManager gm;
     private void Start()
     {
+        gm = gameManager.GetComponent<gameManager>();
         playerController=GameObject.Find("Player").GetComponent<PlayerController>();
         cams[0].Priority = 20;
         cams[1].Priority = 10;
@@ -29,7 +32,7 @@ public class uiScript : MonoBehaviour
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
-                    playerController.SetCurrentCam(i);
+                    gm.SetActiveCam(i);
                 }
                 else
                 {
@@ -66,7 +69,7 @@ public class uiScript : MonoBehaviour
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
-                    playerController.SetCurrentCam(i);
+                    gm.SetActiveCam(i);
                 }
                 else
                 {

@@ -16,3 +16,4 @@ MonoBehaviour:
   itemName: champi
   value: 10
   icon: {fileID: 21300000, guid: 88478ba8c21730a42a3a789311315fd4, type: 3}
+  itemType: 1

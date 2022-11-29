@@ -16,3 +16,4 @@ MonoBehaviour:
   itemName: weed
   value: 10
   icon: {fileID: 21300000, guid: b9f0a38b4262ff544a7a200604c0c362, type: 3}
+  itemType: 3
