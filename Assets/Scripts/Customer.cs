@@ -18,6 +18,7 @@ public class Customer : MonoBehaviour
 
     Image patologie;
     Text patologieText;
+    string ActualQuest;
     GameObject actualCustomer = null;
     private void Awake()
     {
@@ -26,34 +27,43 @@ public class Customer : MonoBehaviour
     }
     public string GetActualQuest()
     {
-        return Quests[0];
+        return ActualQuest;
     }
 
     public void newCustomer()
     {
-        actualCustomer = Instantiate(customerPrefab, paths[0]);
-        Sequence customerPath = DOTween.Sequence().SetId("path").OnComplete(()=> { imagePatologie(); uiCustomerText.SetActive(true); });
-        for (int i = 1; i < paths.Length; i++)
+        if (actualCustomer == null)
         {
 
-            customerPath.Append(actualCustomer.transform.DOMove(new Vector3(paths[i].position.x, 1.85f, paths[i].position.z), timePaths[i]));
+
+            actualCustomer = Instantiate(customerPrefab, paths[0].position,Quaternion.Euler(0,90,0));
+            actualCustomer.name = "Customer";
+            Sequence customerPath = DOTween.Sequence().SetId("path").OnComplete(() => { imagePatologie(); uiCustomerText.SetActive(true); });
+            for (int i = 1; i < paths.Length; i++)
+            {
+
+                customerPath.Append(actualCustomer.transform.DOMove(new Vector3(paths[i].position.x, paths[0].position.y, paths[i].position.z), timePaths[i]));
+            }
+            DOTween.Play("path");
         }
-        DOTween.Play("path");
         
     }
     private void imagePatologie()
     {
+        int RandomNumber = Random.Range(0, Quests.Length);
         patologie.DOFade(0.8f, 0.5f).SetId("custText");
         DOTween.Play("custText");
-        patologieText.text = Quests[0];
+        patologieText.text = Quests[RandomNumber];
+        ActualQuest = patologieText.text;
     }
     public void QuestAchieved()
     {
-        Sequence customerPath = DOTween.Sequence().SetId("path2");
+        print("oui");
+        Sequence customerPath = DOTween.Sequence().SetId("path2").OnComplete(()=> { Destroy(actualCustomer); });
         for (int i = paths.Length-1; i >=0; i--)
         {
 
-            customerPath.Append(actualCustomer.transform.DOMove(new Vector3(paths[i].position.x, 1.85f, paths[i].position.z), timePaths[i]));
+            customerPath.Append(actualCustomer.transform.DOMove(new Vector3(paths[i].position.x, paths[0].position.y, paths[i].position.z), timePaths[i]));
         }
         DOTween.Play("path2");
         patologie.DOFade(0f, 0.5f).SetId("custText2");

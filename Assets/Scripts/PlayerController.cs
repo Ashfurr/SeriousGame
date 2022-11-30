@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if (currentcam==2)
+        if (currentcam==2 && objToCut!=null)
         {
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {

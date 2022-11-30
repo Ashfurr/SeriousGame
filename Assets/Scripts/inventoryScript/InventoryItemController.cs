@@ -43,7 +43,7 @@ public class InventoryItemController : MonoBehaviour
     public void UseItem()
     {
         activeCam = gm.GetActiveCam();
-        print(gm.GetActiveCam());
+        
         GameObject obj = null;
         if (activeCam==2 && playerController.GetObjToCut()==null)
         {
@@ -74,8 +74,10 @@ public class InventoryItemController : MonoBehaviour
         }
         if(activeCam==0)
         {
+            print(item.name + ct.GetActualQuest());
             if (item.itemName == ct.GetActualQuest())
             {
+                
                 ct.QuestAchieved();
                 RemoveItem();
             }
