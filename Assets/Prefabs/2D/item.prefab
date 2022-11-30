@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6415094, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -227,10 +227,10 @@ MonoBehaviour:
   item: {fileID: 0}
   spawnCook: {fileID: 0}
   spawnableObject:
-  - {fileID: 8583403600467625456, guid: b6cd0ece6a68ab140b29c8d50d397c2d, type: 3}
-  - {fileID: 657915934557177294, guid: 80e1b0194e9352148bde7e6037c003b8, type: 3}
-  - {fileID: 2403658529271200164, guid: 463ce5b3a997a3a4a9dde67b245ed54c, type: 3}
-  - {fileID: 4968086903317596578, guid: f1e5524916b339c489670f43d48d6a5a, type: 3}
+  - {fileID: 8583403600467625456, guid: 676b79e02b413714db5cf03ce71c46e1, type: 3}
+  - {fileID: 657915934557177294, guid: 451652e9ba67a5b4aaa609641ba5de33, type: 3}
+  - {fileID: 2403658529271200164, guid: fabc69c716c40d5498390c91329a7b16, type: 3}
+  - {fileID: 4968086903317596578, guid: 2566f17db0b8c9a49ae67d7a0968c262, type: 3}
 --- !u!1 &2982543008495454382
 GameObject:
   m_ObjectHideFlags: 0

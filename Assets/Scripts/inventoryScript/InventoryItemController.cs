@@ -12,11 +12,13 @@ public class InventoryItemController : MonoBehaviour
 
     PlayerController playerController;
     gameManager gm;
+    Customer ct;
     int activeCam=0;
     private void Start()
     {
-        spawnCook = GameObject.Find("CuttingBoard");
+        spawnCook = GameObject.Find("spawnObjCut");
         gm = GameObject.Find("GameManager").GetComponent<gameManager>();
+        ct = GameObject.Find("GameManager").GetComponent<Customer>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
     public void SetCurrentCam(int cam)
@@ -42,26 +44,40 @@ public class InventoryItemController : MonoBehaviour
     {
         activeCam = gm.GetActiveCam();
         print(gm.GetActiveCam());
-        if(activeCam==2)
+        GameObject obj = null;
+        if (activeCam==2 && playerController.GetObjToCut()==null)
         {
+            
             switch (item.itemType)
             {
                 case Item.ItemType.Agastache:
-                    Instantiate(spawnableObject.Find(x => x.name == "Agastache"), spawnCook.transform.position,Quaternion.Euler(0,0,90));
+                    obj=Instantiate(spawnableObject.Find(x => x.name == "AgastacheCut"), spawnCook.transform.position,Quaternion.Euler(0,0,90));
+                    playerController.SetObjToCut(obj);
                     RemoveItem();
                     break;
                 case Item.ItemType.Weed:
-                    Instantiate(spawnableObject.Find(x => x.name == "Weed"), spawnCook.transform.position, Quaternion.Euler(0, 0, 90));
+                    obj = Instantiate(spawnableObject.Find(x => x.name == "WeedCut"), spawnCook.transform.position, Quaternion.Euler(0, 0, 90));
+                    playerController.SetObjToCut(obj);
                     RemoveItem();
                     break;
                 case Item.ItemType.Champi:
-                    Instantiate(spawnableObject.Find(x => x.name == "Champi"), spawnCook.transform.position, Quaternion.Euler(0, 0, 90));
+                    obj = Instantiate(spawnableObject.Find(x => x.name == "ChampiCut"), spawnCook.transform.position, Quaternion.Euler(0, 0, 90));
+                    playerController.SetObjToCut(obj);
                     RemoveItem();
                     break;
                 case Item.ItemType.Sunflower:
-                    Instantiate(spawnableObject.Find(x => x.name == "Sunflower"), spawnCook.transform.position, Quaternion.Euler(0, 0,90));
+                    obj = Instantiate(spawnableObject.Find(x => x.name == "SunflowerCut"), spawnCook.transform.position, Quaternion.Euler(0, 0,90));
+                    playerController.SetObjToCut(obj);
                     RemoveItem();
                     break;
+            }
+        }
+        if(activeCam==0)
+        {
+            if (item.itemName == ct.GetActualQuest())
+            {
+                ct.QuestAchieved();
+                RemoveItem();
             }
         }
     }

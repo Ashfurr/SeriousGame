@@ -6,7 +6,9 @@ public class gameManager : MonoBehaviour
 {
     [SerializeField] Customer customerScript;
     [SerializeField] GameObject player;
+
     [SerializeField] int timeBeforeActiveCam;
+    [SerializeField] GameObject uiCustomer;
     int activeCam ;
     
     private void Start()
@@ -27,7 +29,14 @@ public class gameManager : MonoBehaviour
         yield return new WaitForSeconds(timeBeforeActiveCam);
         activeCam = cam;
         player.GetComponent<PlayerController>().SetActivecam(cam);
-        print(cam);
+        if(activeCam != 0)
+        {
+            uiCustomer.SetActive(false);
+        }
+        else
+        {
+            uiCustomer.SetActive(true);
+        }
     }
     public void newCustomer()
     {

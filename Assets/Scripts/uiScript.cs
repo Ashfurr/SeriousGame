@@ -32,7 +32,7 @@ public class uiScript : MonoBehaviour
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
-                    gm.SetActiveCam(i);
+                    
                 }
                 else
                 {
@@ -54,9 +54,12 @@ public class uiScript : MonoBehaviour
                     cams[i].Priority = 10;
                 }
             }
+
             
         }
-            
+        gm.SetActiveCam(activeScene);
+
+
     }
     public void previousCam()
     {
@@ -69,7 +72,7 @@ public class uiScript : MonoBehaviour
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
-                    gm.SetActiveCam(i);
+                    
                 }
                 else
                 {
@@ -94,6 +97,7 @@ public class uiScript : MonoBehaviour
             }
             
         }
+        gm.SetActiveCam(activeScene);
 
     }
 

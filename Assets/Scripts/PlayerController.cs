@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<Vector3> cutCoord= new List<Vector3> { } ;
     
     private GameObject flowerSelected;
+    private GameObject objToCut=null;
     private Vector2 startPos;
     private Vector2 endPos;
     private bool plop = false;
@@ -23,6 +24,14 @@ public class PlayerController : MonoBehaviour
     public void SetActivecam(int cam)
     {
         currentcam = cam;
+    }
+    public void SetObjToCut(GameObject obj)
+    {
+        objToCut = obj;
+    }
+    public GameObject GetObjToCut()
+    {
+        return objToCut;
     }
     void Update()
     {
@@ -100,7 +109,20 @@ public class PlayerController : MonoBehaviour
         cutting.Append(Knife.transform.DOMove(cutCoord[compCut], 0.5f).SetLoops(2, LoopType.Yoyo));
         cutting.Append(Knife.transform.DOMove(cutCoord[compCut + 1], 1f));
         cutting.Play();
-        cutting.OnComplete(() => { isCutting = false; distanceScreen = 0; if (compCut < 7) { compCut += 2; } else { compCut = 1; }; cutting.Kill(); });
+        cutting.OnComplete(() => { isCutting = false; distanceScreen = 0; cutting.Kill(); });
+        if (compCut < 7)
+        {
+            compCut += 2;
+        } 
+        else 
+        {
+            compCut = 1;
+            Item Item = objToCut.GetComponent<ItemController>().item;
+            InventoryManager.Instance.Add(Item);
+            Destroy(objToCut);
+            objToCut = null;
+        };
+        
     }
 
 }
