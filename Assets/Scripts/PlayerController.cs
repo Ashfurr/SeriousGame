@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         if (currentcam == 1)
         {
 
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && flowerSelected ==null)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                 RaycastHit hit;
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     private void harvestPlant()
     {
            
-        flowerSelected.transform.DOMoveY(1f, 1f).SetId("harvest").SetEase(Ease.OutElastic).OnComplete(destroyPlant);
+        flowerSelected.transform.DOMoveY(0.5f, 1f).SetId("harvest").SetEase(Ease.OutElastic).OnComplete(destroyPlant);
         DOTween.Play("harvest");
     }
     private void destroyPlant()
