@@ -7,6 +7,7 @@ public class uiScript : MonoBehaviour
 {
     [SerializeField] CinemachineVirtualCamera[] cams;
     [SerializeField] GameObject gameManager;
+    [SerializeField] GameObject cookingOption;
     public int activeScene = 0;
     PlayerController playerController;
     gameManager gm;
@@ -24,7 +25,8 @@ public class uiScript : MonoBehaviour
     }
     public void nextCam()
     {
-        if(activeScene < 2)
+      
+        if (activeScene < 2)
         {
             activeScene++;
             for (int i = 0; i < cams.Length; i++)
@@ -58,6 +60,7 @@ public class uiScript : MonoBehaviour
             
         }
         gm.SetActiveCam(activeScene);
+        StartCoroutine(ActivaveCookingOption());
 
 
     }
@@ -85,7 +88,7 @@ public class uiScript : MonoBehaviour
             activeScene = 2;
             for (int i = 0; i < cams.Length; i++)
             {
-                print(i);
+                
                 if (i == activeScene)
                 {
                     cams[i].Priority = 20;
@@ -98,7 +101,25 @@ public class uiScript : MonoBehaviour
             
         }
         gm.SetActiveCam(activeScene);
+        StartCoroutine(ActivaveCookingOption());
 
+
+    }
+    IEnumerator ActivaveCookingOption()
+    {
+       
+        if(activeScene == 2)
+        {
+            yield return new WaitForSeconds(1.5f);
+            if (activeScene == 2)
+            {
+                cookingOption.SetActive(true);
+            }
+        }
+        else
+        {
+            cookingOption.SetActive(false);
+        }
     }
 
 

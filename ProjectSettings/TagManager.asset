@@ -6,6 +6,8 @@ TagManager:
   tags:
   - flower
   - thirdCam
+  - collider
+  - pillon
   layers:
   - Default
   - TransparentFX

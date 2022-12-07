@@ -9,7 +9,7 @@ public class gameManager : MonoBehaviour
 
     [SerializeField] int timeBeforeActiveCam;
     [SerializeField] GameObject uiCustomer;
-    int activeCam ;
+    int activeCam =0;
     
     private void Start()
     {
