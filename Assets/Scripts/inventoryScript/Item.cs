@@ -20,6 +20,10 @@ public class Item : ScriptableObject
         WeedCut,
         AgastacheCut,
         ChampiCut,
-        SunflowerCut
+        SunflowerCut,
+        WeedSmash,
+        AgastacheSmash,
+        ChampiSmash,
+        SunflowerSmash
     }
 }

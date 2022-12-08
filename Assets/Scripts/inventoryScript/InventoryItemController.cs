@@ -6,20 +6,27 @@ public class InventoryItemController : MonoBehaviour
 {
     public Item item;
 
-    [SerializeField] GameObject spawnCook;
+     GameObject spawnCookCut;
+     GameObject spawnCookSmash;
+     GameObject spawnCookOption;
 
     [SerializeField] List<GameObject> spawnableObject = new List<GameObject>();
 
     Cutting playerControllerCut;
+    Smash playerControllerSmash;
     gameManager gm;
     Customer ct;
     int activeCam=0;
     private void Start()
     {
-        spawnCook = GameObject.Find("spawnObjCut");
+        spawnCookCut = GameObject.Find("spawnObjCut");
+        spawnCookSmash = GameObject.Find("spawnObjSmash");
+        spawnCookOption = GameObject.Find("SpawnCookingOption");
         gm = GameObject.Find("GameManager").GetComponent<gameManager>();
         ct = GameObject.Find("GameManager").GetComponent<Customer>();
         playerControllerCut = GameObject.Find("Player").GetComponent<Cutting>();
+        playerControllerSmash = GameObject.Find("Player").GetComponent<Smash>();
+        
     }
     public void SetCurrentCam(int cam)
     {
@@ -42,37 +49,17 @@ public class InventoryItemController : MonoBehaviour
     }
     public void UseItem()
     {
+        print(spawnableObject.Find(x => x.name == "AgastacheSmash"));
         activeCam = gm.GetActiveCam();
         
         GameObject obj = null;
-        if (activeCam==2 && playerControllerCut.GetObjToCut()==null)
+        if (activeCam==2 && playerControllerCut.GetObjToCut()==null && spawnCookOption.GetComponent<SpawnCookingOption>().GetIsCutting() )
         {
-            
-            switch (item.itemType)
-            {
-                case Item.ItemType.Agastache:
-                    obj=Instantiate(spawnableObject.Find(x => x.name == "AgastacheCut"), spawnCook.transform.position,Quaternion.Euler(0,0,90));
-                    obj.transform.localScale = new Vector3(2,2,2);
-                    playerControllerCut.SetObjToCut(obj);
-                    RemoveItem();
-                    break;
-                case Item.ItemType.Weed:
-                    obj = Instantiate(spawnableObject.Find(x => x.name == "WeedCut"), spawnCook.transform.position, Quaternion.Euler(0, 0, 90));
-                    playerControllerCut.SetObjToCut(obj);
-                    RemoveItem();
-                    break;
-                case Item.ItemType.Champi:
-                    obj = Instantiate(spawnableObject.Find(x => x.name == "ChampiCut"), spawnCook.transform.position, Quaternion.Euler(0, 0, 90));
-                    playerControllerCut.SetObjToCut(obj);
-                    RemoveItem();
-                    break;
-                case Item.ItemType.Sunflower:
-                    obj = Instantiate(spawnableObject.Find(x => x.name == "SunflowerCut"), spawnCook.transform.position, Quaternion.Euler(0, 0,90));
-                    obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
-                    playerControllerCut.SetObjToCut(obj);
-                    RemoveItem();
-                    break;
-            }
+            SpawnOnCut(obj);
+        }
+        if(activeCam==2 &&  playerControllerSmash.GetObjToSmash()==null&& !spawnCookOption.GetComponent<SpawnCookingOption>().GetIsCutting())
+        {
+            SpawnOnSmash(obj);
         }
         if(activeCam==0)
         {
@@ -84,5 +71,66 @@ public class InventoryItemController : MonoBehaviour
                 RemoveItem();
             }
         }
+    }
+    void SpawnOnSmash(GameObject obj)
+    {
+        switch (item.itemType)
+        {
+            case Item.ItemType.Agastache:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "AgastacheSmash"), spawnCookSmash.transform.position, Quaternion.Euler(0, 0, 0));
+                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                playerControllerSmash.SetObjToSmash(obj);
+                RemoveItem();
+                break;
+            case Item.ItemType.Weed:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "WeedSmash"), spawnCookSmash.transform.position, Quaternion.Euler(0, 0, 0));
+                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                playerControllerSmash.SetObjToSmash(obj);
+                RemoveItem();
+                break;
+            case Item.ItemType.Champi:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "ChampiSmash"), spawnCookSmash.transform.position, Quaternion.Euler(0, 0, 0));
+                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                playerControllerSmash.SetObjToSmash(obj);
+                RemoveItem();
+                break;
+            case Item.ItemType.Sunflower:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "SunflowerSmash"), spawnCookSmash.transform.position, Quaternion.Euler(0, 0, 0));
+                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                playerControllerSmash.SetObjToSmash(obj);
+                RemoveItem();
+                break;
+        }
+
+    }
+    void SpawnOnCut(GameObject obj)
+    {
+
+        switch (item.itemType)
+        {
+            case Item.ItemType.Agastache:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "AgastacheCut"), spawnCookCut.transform.position, Quaternion.Euler(0, 0, 90));
+                obj.transform.localScale = new Vector3(2, 2, 2);
+                playerControllerCut.SetObjToCut(obj);
+                RemoveItem();
+                break;
+            case Item.ItemType.Weed:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "WeedCut"), spawnCookCut.transform.position, Quaternion.Euler(0, 0, 90));
+                playerControllerCut.SetObjToCut(obj);
+                RemoveItem();
+                break;
+            case Item.ItemType.Champi:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "ChampiCut"), spawnCookCut.transform.position, Quaternion.Euler(0, 0, 90));
+                playerControllerCut.SetObjToCut(obj);
+                RemoveItem();
+                break;
+            case Item.ItemType.Sunflower:
+                obj = Instantiate(spawnableObject.Find(x => x.name == "SunflowerCut"), spawnCookCut.transform.position, Quaternion.Euler(0, 0, 90));
+                obj.transform.localScale = new Vector3(0.9f, 0.9f, 0.9f);
+                playerControllerCut.SetObjToCut(obj);
+                RemoveItem();
+                break;
+        }
+
     }
 }

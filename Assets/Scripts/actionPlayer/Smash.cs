@@ -8,14 +8,30 @@ public class Smash : MonoBehaviour
     [SerializeField] Joystick controller;
     [SerializeField] float width;
     [SerializeField] GameObject spawnCook;
+    [SerializeField] float maxItemHeight;
+    private GameObject objToSmash = null;
     gameManager gm;
     SpawnCookingOption sco;
     Transform bowl;
     GameObject pillon;
+    GameObject bowlCouvercle;
+    int compteurTour;
     bool collidertouch = false;
+    bool isSmashing=false;
+
+    public GameObject GetObjToSmash()
+    {
+        return objToSmash;
+    }
+    public void SetObjToSmash(GameObject obj)
+    {
+        objToSmash = obj;
+        ;
+    }
     public void SetColliderTouch()
     {
-        if(!collidertouch)
+        
+        if (!collidertouch)
         {
             GameObject[] colliderbowl = GameObject.FindGameObjectsWithTag("collider");
             int tempColliderTouch=0;
@@ -58,15 +74,21 @@ public class Smash : MonoBehaviour
         sco = spawnCook.GetComponent<SpawnCookingOption>();
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if (gm.GetActiveCam() == 2 && !sco.GetIsCutting())
+        if(objToSmash != null && objToSmash.transform.position.y>maxItemHeight)
         {
+            objToSmash.transform.position = new Vector3(objToSmash.transform.position.x, objToSmash.transform.position.y-0.01f, objToSmash.transform.position.z);
+        }
+        if (gm.GetActiveCam() == 2 && !sco.GetIsCutting() && objToSmash!=null)
+        {
+  
             float x = bowl.position.x + Mathf.Sin(controller.Direction.x) * width;
             float z = bowl.position.z + Mathf.Sin(controller.Direction.y) * width;
             float y = bowl.position.y + 0.5f;
             pillon.transform.position = new Vector3(x, y, z);
         }
+
     }
 }

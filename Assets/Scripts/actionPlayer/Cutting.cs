@@ -16,7 +16,7 @@ public class Cutting : MonoBehaviour
     private Vector2 startPos;
     private Vector2 endPos;
     float distanceScreen;
-    bool isCutting;
+    public bool isCutting;
     int compCut = 1;
     public GameObject GetObjToCut()
     {

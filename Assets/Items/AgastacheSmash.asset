@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 559d2cb8344872646848d0787b80af37, type: 3}
-  m_Name: Champi
+  m_Name: AgastacheSmash
   m_EditorClassIdentifier: 
-  id: 2
-  itemName: Champi
+  id: 5
+  itemName: AgastacheSmash
   value: 10
-  icon: {fileID: 21300000, guid: adab3e697277153468eb0353920f5f1b, type: 3}
-  itemType: 1
+  icon: {fileID: 21300000, guid: c0ae5560e2dae444bb04294b80e9e16f, type: 3}
+  itemType: 9

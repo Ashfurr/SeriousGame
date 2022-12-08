@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     {
         if (currentcam == 1)
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !plop)
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
                 RaycastHit hit;
@@ -37,11 +37,11 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && flowerSelected != null)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended && flowerSelected != null &&  !plop)
             {               
                 endPos = Input.GetTouch(0).position;
                 float distance = Vector2.Distance(startPos, endPos);
-                if (distance > flowerDistance && !plop)
+                if (distance > flowerDistance)
                 {
                     plop = true;
                     harvestPlant();
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         Item Item = flowerSelected.GetComponent<ItemController>().item;
         InventoryManager.Instance.Add(Item);
-        Destroy(flowerSelected);
+        Destroy (flowerSelected);
         flowerSelected = null;
         plop = false;
     }
