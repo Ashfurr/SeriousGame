@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 3
   itemName: Sunflower
   value: 10
-  icon: {fileID: 21300000, guid: 3789ca5540270854aa016e87dad22922, type: 3}
+  icon: {fileID: 21300000, guid: 0434097b0cbb0ac4da35dfbd852b2d4a, type: 3}
   itemType: 2
