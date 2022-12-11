@@ -30,34 +30,44 @@ public class Smash : MonoBehaviour
     }
     public void SetColliderTouch()
     {
-        
-        if (!collidertouch)
+        if (compteurTour <= 2)
         {
-            GameObject[] colliderbowl = GameObject.FindGameObjectsWithTag("collider");
-            int tempColliderTouch=0;
-            foreach (GameObject col in colliderbowl)
+            if (!collidertouch)
             {
-                if(col.GetComponent<Collider>().isActivated == true)
+                GameObject[] colliderbowl = GameObject.FindGameObjectsWithTag("collider");
+                int tempColliderTouch = 0;
+                foreach (GameObject col in colliderbowl)
                 {
-                    tempColliderTouch++;
-                    if(tempColliderTouch == 4)
+                    if (col.GetComponent<Collider>().isActivated == true)
                     {
-                        collidertouch = true;
-                        print("j'ai tout touché");
-                    }
-                };
+                        tempColliderTouch++;
+                        if (tempColliderTouch == 4)
+                        {
+                            collidertouch = true;
+
+                        }
+                    };
+                }
+
             }
-            
+            else
+            {
+                collidertouch = false;
+                GameObject[] colliderbowl = GameObject.FindGameObjectsWithTag("collider");
+                foreach (GameObject col in colliderbowl)
+                {
+                    col.GetComponent<Collider>().isActivated = false;
+                }
+                compteurTour++;
+            }
         }
         else
         {
-            collidertouch = false;
-            GameObject[] colliderbowl = GameObject.FindGameObjectsWithTag("collider");
-            foreach(GameObject col in colliderbowl)
-            {
-                col.GetComponent<Collider>().isActivated = false;
-            }
-            print("je reset");
+            Item Item = objToSmash.GetComponent<ItemController>().item;
+            InventoryManager.Instance.Add(Item);
+            Destroy(objToSmash);
+            objToSmash = null;
+            compteurTour = 0;
         }
        
     }
