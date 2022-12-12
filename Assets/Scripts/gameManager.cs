@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,14 @@ public class gameManager : MonoBehaviour
 {
     [SerializeField] Customer customerScript;
     [SerializeField] GameObject player;
-
+    GameObject vt;
     [SerializeField] int timeBeforeActiveCam;
     [SerializeField] GameObject uiCustomer;
     int activeCam =0;
     
     private void Start()
     {
-        
+        vt.transform.DORotate
     }
     public int GetActiveCam()
     {
