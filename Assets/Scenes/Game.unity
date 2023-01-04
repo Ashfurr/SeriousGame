@@ -1822,7 +1822,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6014,7 +6014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7230,6 +7230,7 @@ MonoBehaviour:
   gameManager: {fileID: 1311670383}
   Knife: {fileID: 3293664792659028271}
   cutCoord:
+  - {x: 0.192, y: 0.276, z: -0.38}
   - {x: 0.192, y: 0.276, z: -0.174}
   - {x: 0.192, y: 0.276, z: -0.028}
   - {x: 0.192, y: 0.276, z: 0.24}
