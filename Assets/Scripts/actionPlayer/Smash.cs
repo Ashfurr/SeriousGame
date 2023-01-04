@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Smash : MonoBehaviour
@@ -7,18 +8,14 @@ public class Smash : MonoBehaviour
     [SerializeField] GameObject gameManager;
     [SerializeField] Joystick controller;
     [SerializeField] float width;
-    [SerializeField] GameObject spawnCook;
     [SerializeField] float maxItemHeight;
-    private GameObject objToSmash = null;
+    public GameObject objToSmash = null;
     gameManager gm;
-    SpawnCookingOption sco;
     Transform bowl;
     GameObject pillon;
-    GameObject bowlCouvercle;
     int compteurTour;
     bool collidertouch = false;
-    bool isSmashing=false;
-
+    
     public GameObject GetObjToSmash()
     {
         return objToSmash;
@@ -26,8 +23,9 @@ public class Smash : MonoBehaviour
     public void SetObjToSmash(GameObject obj)
     {
         objToSmash = obj;
-        ;
+        
     }
+    
     public void SetColliderTouch()
     {
         if (compteurTour <= 2)
@@ -68,20 +66,18 @@ public class Smash : MonoBehaviour
             Destroy(objToSmash);
             objToSmash = null;
             compteurTour = 0;
+            GameObject.Find("Camera/firstCam").GetComponent<AimCamera>().ResetCam();
         }
        
     }
 
-    public void SetSmashSpawn()
-    {
-        bowl = GameObject.Find("bowl").GetComponent<Transform>();
-        pillon = GameObject.Find("pillon");
-    }
+   
     // Start is called before the first frame update
     void Start()
     {
         gm = gameManager.GetComponent<gameManager>();
-        sco = spawnCook.GetComponent<SpawnCookingOption>();
+        bowl = GameObject.Find("mortar/bowl").GetComponent<Transform>();
+        pillon = GameObject.Find("mortar/pillon");
     }
 
 
@@ -91,12 +87,12 @@ public class Smash : MonoBehaviour
         {
             objToSmash.transform.position = new Vector3(objToSmash.transform.position.x, objToSmash.transform.position.y-0.01f, objToSmash.transform.position.z);
         }
-        if (gm.GetActiveCam() == 2 && !sco.GetIsCutting() && objToSmash!=null)
+        if (gm.GetActiveCam() == 0 && objToSmash!=null)
         {
   
             float x = bowl.position.x + Mathf.Sin(controller.Direction.x) * width;
             float z = bowl.position.z + Mathf.Sin(controller.Direction.y) * width;
-            float y = bowl.position.y + 0.5f;
+            float y = bowl.position.y + 0.2f;
             pillon.transform.position = new Vector3(x, y, z);
         }
 

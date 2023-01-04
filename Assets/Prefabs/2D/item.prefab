@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+  spawnCookOption: {fileID: 0}
   spawnableObject:
   - {fileID: 8583403600467625456, guid: 676b79e02b413714db5cf03ce71c46e1, type: 3}
   - {fileID: 657915934557177294, guid: 451652e9ba67a5b4aaa609641ba5de33, type: 3}
