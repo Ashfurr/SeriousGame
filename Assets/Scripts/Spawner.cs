@@ -17,7 +17,7 @@ public class Spawner : MonoBehaviour
     {
         if (flowerRef == null)
         {
-            flowerRef=Instantiate(flowerPrefab, flowerPlace, Quaternion.identity);
+            flowerRef=Instantiate(flowerPrefab, flowerPlace,flowerPrefab.transform.rotation);
 
         }
     }

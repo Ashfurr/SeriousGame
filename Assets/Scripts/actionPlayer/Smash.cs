@@ -76,7 +76,7 @@ public class Smash : MonoBehaviour
     void Start()
     {
         gm = gameManager.GetComponent<gameManager>();
-        bowl = GameObject.Find("mortar/bowl").GetComponent<Transform>();
+       
         pillon = GameObject.Find("mortar/pillon");
     }
 

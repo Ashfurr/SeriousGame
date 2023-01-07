@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float flowerDistance;
     [SerializeField] int currentcam=0;
+    [SerializeField] GameObject buttonInventory;
+    [SerializeField] GameObject imagefinger;
     private GameObject flowerSelected;
- 
+    private bool tuto=true;
     private Vector2 startPos;
     private Vector2 endPos;
     private bool plop = false;
@@ -31,7 +33,8 @@ public class PlayerController : MonoBehaviour
                 if (Physics.Raycast(ray, out hit))
                 {
                     if (hit.collider.tag == "flower")
-                    {                   
+                    {   
+                        imagefinger.SetActive(false);
                         flowerSelected = hit.collider.gameObject;
                         startPos = Input.GetTouch(0).position;
                     }
@@ -44,6 +47,8 @@ public class PlayerController : MonoBehaviour
                 if (distance > flowerDistance)
                 {
                     plop = true;
+                    Item Item = flowerSelected.GetComponent<ItemController>().item;
+                    InventoryManager.Instance.Add(Item);
                     harvestPlant();
                 }
             }
@@ -53,14 +58,22 @@ public class PlayerController : MonoBehaviour
     {         
         flowerSelected.transform.DOMoveY(1f, 1f).SetId("harvest").SetEase(Ease.OutElastic).OnComplete(destroyPlant);
         DOTween.Play("harvest");
+        
     }
     private void destroyPlant()
     {
-        Item Item = flowerSelected.GetComponent<ItemController>().item;
-        InventoryManager.Instance.Add(Item);
         Destroy (flowerSelected);
-        flowerSelected = null;
+        
         plop = false;
+        buttonInventory.transform.DOScale(1.1f, 0.2f).SetLoops(2, LoopType.Yoyo).SetId("juice");
+        DOTween.Play("juice");
+        if (tuto == true)
+        {
+            tuto = false;
+            GameObject.Find("GameManager").GetComponent<Customer>().Tuto4Garden();
+        }
+
+
     }
 
 }

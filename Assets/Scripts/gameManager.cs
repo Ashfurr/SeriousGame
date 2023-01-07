@@ -13,7 +13,9 @@ public class gameManager : MonoBehaviour
     [SerializeField] GameObject uiCustomer;
     [SerializeField] GameObject Mortar;
     [SerializeField] GameObject Board;
+    [SerializeField] public  GameObject finger;
     int activeCam =0;
+    public bool tuto = true;
     
 
     public int GetActiveCam()
@@ -22,9 +24,13 @@ public class gameManager : MonoBehaviour
     }
     public void StartCookTween()
     {
-        Mortar.transform.DOScale(1.5f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetId("mortar");
+        if (tuto == false)
+        {
+            Mortar.SetActive(true);    
+            Mortar.transform.DOScale(1.5f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetId("mortar");
+            DOTween.Play("mortar");
+        }
         Board.transform.DOScale(0.4f, 0.5f).SetLoops(-1, LoopType.Yoyo).SetId("board");
-        DOTween.Play("mortar");
         DOTween.Play("board");
 
     }
@@ -33,7 +39,17 @@ public class gameManager : MonoBehaviour
         if (DOTween.IsTweening("mortar"))
         {
             DOTween.Kill("mortar");
+            
+        }
+        if (DOTween.IsTweening("board"))
+        {
             DOTween.Kill("board");
+            if (tuto == true)
+            {
+                finger.SetActive(true);
+                finger.transform.DOLocalMove(new Vector3(-238, -628, 0), 0.5f).SetLoops(-1, LoopType.Restart).SetId("cut");
+            }
+               
         }
     }
     public void SetActiveCam(int cam)

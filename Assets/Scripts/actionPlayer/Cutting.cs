@@ -1,11 +1,14 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Sequence = DG.Tweening.Sequence;
 
 public class Cutting : MonoBehaviour
 {
     [SerializeField] GameObject gameManager;
+    [SerializeField] GameObject finger;
     [SerializeField] GameObject Knife;
     [SerializeField] List<Vector3> cutCoord = new List<Vector3> { };
     gameManager gm;
@@ -43,6 +46,7 @@ public class Cutting : MonoBehaviour
             cutting.Play();
             cutting.OnComplete(() => { isCutting = false; distanceScreen = 0; cutting.Kill(); });
             compCut ++;
+            objToCut.transform.GetChild(compCut).AddComponent<Rigidbody>();
         }
         else
         {
@@ -55,6 +59,13 @@ public class Cutting : MonoBehaviour
             Destroy(objToCut);
             objToCut = null;
             GameObject.Find("Camera/firstCam").GetComponent<AimCamera>().ResetCam();
+            if (gm.tuto == true)
+            {
+                gm.tuto = false;
+                DOTween.Kill("cut");
+                finger.transform.localPosition = new Vector3(-238, -800, 0);
+            }
+            
         };
 
     }
