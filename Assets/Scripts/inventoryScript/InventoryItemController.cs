@@ -49,14 +49,42 @@ public class InventoryItemController : MonoBehaviour
         }
         else
         {
-            activeCam = gm.GetActiveCam();
-            gm.StartCookTween();
-            spawnCookOption.SetActive(true);
-            camScript.GetComponent<AimCamera>().tmpItem = this.gameObject;
-            GameObject.Find("Ui/Inventory").SetActive(false);
+            switch (item.itemType)
+            {
+                case Item.ItemType.Agastache:
+                    activeCam = gm.GetActiveCam();
+                    gm.StartCookTween();
+                    spawnCookOption.SetActive(true);
+                    camScript.GetComponent<AimCamera>().tmpItem = this.gameObject;
+                    GameObject.Find("Ui/Inventory").SetActive(false);
+                    gm.finger.SetActive(false);
+                    break;
+                case Item.ItemType.Weed:
+                    activeCam = gm.GetActiveCam();
+                    gm.StartCookTween();
+                    spawnCookOption.SetActive(true);
+                    camScript.GetComponent<AimCamera>().tmpItem = this.gameObject;
+                    GameObject.Find("Ui/Inventory").SetActive(false);
+                    break;
+                case Item.ItemType.Champi:
+                    activeCam = gm.GetActiveCam();
+                    gm.StartCookTween();
+                    spawnCookOption.SetActive(true);
+                    camScript.GetComponent<AimCamera>().tmpItem = this.gameObject;
+                    GameObject.Find("Ui/Inventory").SetActive(false);
+                    break;
+                case Item.ItemType.Sunflower:
+                    activeCam = gm.GetActiveCam();
+                    gm.StartCookTween();
+                    spawnCookOption.SetActive(true);
+                    camScript.GetComponent<AimCamera>().tmpItem = this.gameObject;
+                    GameObject.Find("Ui/Inventory").SetActive(false);
+                    break;
+                    default:
+                    break;
+            }
         }
- 
-        
+       
     }
 
    public void SpawnOnSmash()
@@ -65,8 +93,8 @@ public class InventoryItemController : MonoBehaviour
         switch (item.itemType)
         {
             case Item.ItemType.Agastache:
-                obj = Instantiate(spawnableObject.Find(x => x.name == "AgastacheSmash"), spawnCookSmash.transform.position, Quaternion.Euler(0, 0, 0));
-                obj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                obj = Instantiate(spawnableObject.Find(x => x.name == "AgastacheSmash"), new Vector3(-6.95870018f, 1.14100003f, -11.5030003f), Quaternion.Euler(0, 0, 90));
+                obj.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
                 playerControllerSmash.SetObjToSmash(obj);
                 RemoveItem();
                 break;
@@ -97,8 +125,8 @@ public class InventoryItemController : MonoBehaviour
         switch (item.itemType)
         {
             case Item.ItemType.Agastache:
-                obj = Instantiate(spawnableObject.Find(x => x.name == "AgastacheCut"), spawnCookCut.transform.position, Quaternion.Euler(90, 0, 0));
-                obj.transform.localScale = new Vector3(1, 1, 1);
+                obj = Instantiate(spawnableObject.Find(x => x.name == "AgastacheCut"), new Vector3(-7.0302f, 0.808000028f, -11.1370001f), Quaternion.Euler(90, 0, 90));
+                obj.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
                 playerControllerCut.SetObjToCut(obj);
                 RemoveItem();
                 break;
